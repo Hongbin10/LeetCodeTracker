@@ -1,10 +1,8 @@
 # LeetCode Tracker — Safari 插件
 一款帮你追踪 LeetCode 刷题进度的 Safari 浏览器扩展 🚀
-
 <p align="center">
- ![image](icons/show.png)
+  <img src="./icons/show.png" alt="show icon" width="300" />
 </p>
-
 数据保存在本地，不上传任何服务器。
 
 ## 功能说明
