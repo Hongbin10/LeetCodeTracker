@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LeetCode Tracker</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- Header -->
+    <header>
+      <div class="header-left">
+        <span class="logo">⚡</span>
+        <h1>LeetCode Tracker</h1>
+      </div>
+      <button id="btn-clear" title="清除所有记录">🗑</button>
+    </header>
+
+    <!-- Stats Bar -->
+    <div id="stats-bar">
+      <div class="stat">
+        <span class="stat-num" id="stat-total">0</span>
+        <span class="stat-label">总计</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num" id="stat-today">0</span>
+        <span class="stat-label">今天</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num stat-num--review" id="stat-review">0</span>
+        <span class="stat-label">待复习</span>
+      </div>
+    </div>
+
+    <!-- Delete Bar（勾选记录后出现）-->
+    <div id="delete-bar">
+      <span id="delete-bar-count"></span>
+      <button class="bar-btn" id="btn-cancel-select">取消</button>
+      <button class="bar-btn" id="btn-delete-selected">🗑 删除</button>
+    </div>
+
+    <!-- Main content -->
+    <main id="main">
+
+      <!-- 间隔复习提醒 -->
+      <section id="section-review" class="section hidden">
+        <div class="section-header">
+          <h2>📚 待复习 — 去 AC 一遍即可</h2>
+        </div>
+        <ul id="list-review" class="problem-list"></ul>
+      </section>
+
+      <!-- 今天完成 -->
+      <section id="section-today" class="section hidden">
+        <div class="section-header">
+          <h2>✅ 今天完成</h2>
+        </div>
+        <ul id="list-today" class="problem-list"></ul>
+      </section>
+
+      <!-- 历史记录 -->
+      <section id="section-history" class="section hidden">
+        <div class="section-header collapsible" id="toggle-history">
+          <h2>🗂 历史记录</h2>
+          <span class="toggle-icon">▾</span>
+        </div>
+        <div id="list-history" class="collapsed"></div>
+      </section>
+
+      <!-- 空状态 -->
+      <div id="empty-state" class="empty-state">
+        <p class="empty-icon">🧩</p>
+        <p>还没有记录</p>
+        <p class="empty-sub">去 LeetCode 点击 Submit 提交一道题吧！</p>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
