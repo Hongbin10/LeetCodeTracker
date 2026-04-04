@@ -1,6 +1,25 @@
 # LeetCode Tracker — Safari 插件
 一款帮你追踪 LeetCode 刷题进度的 Safari 浏览器扩展 🚀
-https://private-user-images.githubusercontent.com/235874943/573842733-a2b33fcc-e63f-4fdb-9e0a-34428b92a44c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzUzMjMyMTEsIm5iZiI6MTc3NTMyMjkxMSwicGF0aCI6Ii8yMzU4NzQ5NDMvNTczODQyNzMzLWEyYjMzZmNjLWU2M2YtNGZkYi05ZTBhLTM0NDI4YjkyYTQ0Yy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA0JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwNFQxNzE1MTFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1kMDE3OGNhNTUwMzRkNWQzZGYyOTliNzBjZDEwMzQ4YTVmMjVhYjc4YjdhN2YzN2E5YWNlMmY1Y2EzNjdmOWRlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.6KPLGJZwtfstscBcOL4PaFyrR97GEHx3Mfjj_04O4L8
+
+<p align="center">
+  <img src="https://private-user-images.githubusercontent.com/235874943/573842733-a2b33fcc-e63f-4fdb-9e0a-34428b92a44c.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzUzMjMyMTEsIm5iZiI6MTc3NTMyMjkxMSwicGF0aCI6Ii8yMzU4NzQ5NDMvNTczODQyNzMzLWEyYjMzZmNjLWU2M2YtNGZkYi05ZTBhLTM0NDI4YjkyYTQ0Yy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNDA0JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDQwNFQxNzE1MTFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1kMDE3OGNhNTUwMzRkNWQzZGYyOTliNzBjZDEwMzQ4YTVmMjVhYjc4YjdhN2YzN2E5YWNlMmY1Y2EzNjdmOWRlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.6KPLGJZwtfstscBcOL4PaFyrR97GEHx3Mfjj_04O4L8" alt="LeetCode Tracker App" width="300">
+</p>
+
+数据保存在本地，不上传任何服务器。
+
+## 功能说明
+
+| 功能 | 说明 |
+|------|------|
+| 自动记录 | Submit → Accepted 后自动保存，无需手动操作 |
+| 待复习 | 每天打开插件，**蓝色高亮**显示待复习的题，按照遗忘曲线管理复习进度 |
+| 今日完成 | 显示今天提交成功的题目 |
+| 历史记录 | 可折叠的历史列表 |
+| 防重复 | 同一题不会重复记录 |
+| 点击跳转 | 点击任意题目可跳转到对应 Problem 页面 |
+| 清除记录 | 右上角 🗑 按钮，确认后清除所有记录 |
+
+---
 
 ## 安装插件
 
@@ -39,20 +58,3 @@ leetcode-tracker-extension/
 }
 ```
 
-数据保存在本地，不上传任何服务器。
-
----
-
-## 功能说明
-
-| 功能 | 说明 |
-|------|------|
-| 自动记录 | Submit → Accepted 后自动保存，无需手动操作 |
-| 待复习 | 每天打开插件，**蓝色高亮**显示待复习的题，按照遗忘曲线管理复习进度 |
-| 今日完成 | 显示今天提交成功的题目 |
-| 历史记录 | 可折叠的历史列表 |
-| 防重复 | 同一题不会重复记录 |
-| 点击跳转 | 点击任意题目可跳转到对应 Problem 页面 |
-| 清除记录 | 右上角 🗑 按钮，确认后清除所有记录 |
-
----
