@@ -175,12 +175,13 @@
           newReviewCount = existing.reviewCount + 1;
           const intervalMs = getNextIntervalMs(newReviewCount);
           reviewSchedule[info.title] = {
-            reviewCount:    newReviewCount,
-            firstSolvedAt:  existing.firstSolvedAt,
-            lastReviewedAt: todayTs,
-            nextReviewAt:   todayTs + intervalMs,
-            difficulty:     info.difficulty || existing.difficulty,
-            category:       info.category   || existing.category,
+            reviewCount:      newReviewCount,
+            firstSolvedAt:    existing.firstSolvedAt,
+            lastReviewedAt:   todayTs,
+            reviewedTodayAt:  todayTs,   // 标记今天完成了一次有效复习
+            nextReviewAt:     todayTs + intervalMs,
+            difficulty:       info.difficulty || existing.difficulty,
+            category:         info.category   || existing.category,
           };
         } else {
           // 未到复习窗口 → 不计入复习，保持原计划不变
@@ -247,7 +248,7 @@
     setTimeout(() => {
       toast.style.opacity = '0';
       setTimeout(() => toast.remove(), 400);
-    }, 4000);
+    }, 3000);
   }
 
   // ─── 监听 Submit ─────────────────────────────────────────────────────────────

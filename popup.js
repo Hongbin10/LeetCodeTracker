@@ -307,14 +307,19 @@
     // 今天已做的题（这些不再出现在待复习里）
     const todayTitles = new Set(todaySubs.map((s) => s.title));
 
-    // ── 待复习：nextReviewAt 落在今天或之前，且今天没重新提交 ──
+    // ── 待复习：nextReviewAt 落在今天或之前，或今天刚完成了复习（reviewedTodayAt 在今天）──
     const dueReviews = Object.entries(reviewSchedule)
       .filter(([title, info]) =>
-        startOfDay(info.nextReviewAt) <= TODAY_START && !todayTitles.has(title)
+        startOfDay(info.nextReviewAt) <= TODAY_START ||
+        (info.reviewedTodayAt && info.reviewedTodayAt >= TODAY_START)
       )
-      .map(([title, info]) => ({ title, ...info }))
-      // 逾期越多越靠前；同等逾期按难度排：Hard > Medium > Easy
+      .map(([title, info]) => ({
+        title, ...info,
+        doneToday: !!(info.reviewedTodayAt && info.reviewedTodayAt >= TODAY_START),
+      }))
+      // 未完成的排前面，已完成的排后面；各自内部按逾期天数和难度排序
       .sort((a, b) => {
+        if (a.doneToday !== b.doneToday) return a.doneToday ? 1 : -1;
         const diffA = overdueDays(a.nextReviewAt);
         const diffB = overdueDays(b.nextReviewAt);
         if (diffB !== diffA) return diffB - diffA;
@@ -323,7 +328,7 @@
       });
 
     // ── 统计栏 ──
-    document.getElementById('stat-total').textContent  = Object.keys(reviewSchedule).length;
+    document.getElementById('stat-total').textContent  = submissions.length;
     document.getElementById('stat-today').textContent  = todaySubs.length;
     document.getElementById('stat-review').textContent = dueReviews.length;
 
