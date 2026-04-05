@@ -166,18 +166,30 @@
       let newReviewCount = 0;
 
       if (existing) {
-        // 已存在 → 本次是一次复习
-        isReview = true;
-        newReviewCount = existing.reviewCount + 1;
-        const intervalMs = getNextIntervalMs(newReviewCount);
-        reviewSchedule[info.title] = {
-          reviewCount:    newReviewCount,
-          firstSolvedAt:  existing.firstSolvedAt,
-          lastReviewedAt: todayTs,
-          nextReviewAt:   todayTs + intervalMs,
-          difficulty:     info.difficulty || existing.difficulty,
-          category:       info.category   || existing.category,
-        };
+        const now = Date.now();
+        const isDue = now >= existing.nextReviewAt; // 只有到了复习时间才算有效复习
+
+        if (isDue) {
+          // 到了复习窗口 → 算一次有效复习，递增计数
+          isReview = true;
+          newReviewCount = existing.reviewCount + 1;
+          const intervalMs = getNextIntervalMs(newReviewCount);
+          reviewSchedule[info.title] = {
+            reviewCount:    newReviewCount,
+            firstSolvedAt:  existing.firstSolvedAt,
+            lastReviewedAt: todayTs,
+            nextReviewAt:   todayTs + intervalMs,
+            difficulty:     info.difficulty || existing.difficulty,
+            category:       info.category   || existing.category,
+          };
+        } else {
+          // 未到复习窗口 → 不计入复习，保持原计划不变
+          reviewSchedule[info.title] = {
+            ...existing,
+            difficulty: info.difficulty || existing.difficulty,
+            category:   info.category   || existing.category,
+          };
+        }
       } else {
         // 全新题目 → 第一次刷，1天后提醒复习
         reviewSchedule[info.title] = {
@@ -203,9 +215,15 @@
           const intervalDays = REVIEW_INTERVALS_DAYS[
             Math.min(newReviewCount, REVIEW_INTERVALS_DAYS.length - 1)
           ];
-          showToast(`🔁 复习完成：${info.title}（第${newReviewCount}次）— ${intervalDays}天后再复习`);
+          const nextDate = new Date(todayTs + intervalDays * 86_400_000);
+          const nd = String(nextDate.getDate()).padStart(2,'0');
+          const nm = String(nextDate.getMonth()+1).padStart(2,'0');
+          const ny = nextDate.getFullYear();
+          showToast(`🔁 复习完成（第${newReviewCount}次），下次复习时间 ${nd}/${nm}/${ny}`);
+        } else if (existing) {
+          showToast(`✅ 已记录：${info.title}（复习计划未变）`);
         } else {
-          showToast(`✅ 已记录：${info.title} — 明天提醒复习`);
+          showToast(`✅ 已记录：${info.title} — 明天记得复习哟`);
         }
       });
     });
@@ -217,17 +235,19 @@
     toast.id = 'lc-tracker-toast';
     toast.textContent = message;
     Object.assign(toast.style, {
-      position: 'fixed', bottom: '24px', right: '24px', zIndex: '2147483647',
-      background: '#16a34a', color: '#fff', padding: '10px 18px',
-      borderRadius: '10px', fontSize: '14px', fontWeight: '600',
-      fontFamily: 'system-ui, sans-serif', boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
+      position: 'fixed', top: '60px', left: '50%', transform: 'translateX(-50%)',
+      zIndex: '2147483647',
+      background: '#16a34a', color: '#fff', padding: '10px 20px',
+      borderRadius: '24px', fontSize: '14px', fontWeight: '600',
+      fontFamily: 'system-ui, sans-serif', boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
       opacity: '1', transition: 'opacity 0.4s ease', pointerEvents: 'none',
+      whiteSpace: 'nowrap',
     });
     document.body.appendChild(toast);
     setTimeout(() => {
       toast.style.opacity = '0';
       setTimeout(() => toast.remove(), 400);
-    }, 3000);
+    }, 4000);
   }
 
   // ─── 监听 Submit ─────────────────────────────────────────────────────────────

@@ -293,3 +293,11 @@ header h1 { font-size: 14px; font-weight: 700; color: var(--text-1); }
 #confirm-yes:hover { opacity: 0.9; }
 #confirm-no  { background: var(--bg); color: var(--text-1); }
 #confirm-no:hover { background: var(--bg-hover); }
+
+/* 今日已复习：划线 + 变灰 */
+.problem-item.review-done { opacity: 0.55; }
+.problem-item.review-done .problem-title { text-decoration: line-through; color: var(--text-3); }
+.problem-item.review-done .problem-meta  { opacity: 0.6; }
+
+/* 今日已复习徽章 */
+.badge-done-today { background: #dcfce7; color: #15803d; }

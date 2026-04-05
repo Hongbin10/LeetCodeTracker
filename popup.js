@@ -79,7 +79,7 @@
 
   // ─── 渲染"待复习"条目（间隔复习专用）────────────────────────────────────────
 
-  function renderReviewItem(title, scheduleInfo) {
+  function renderReviewItem(title, scheduleInfo, isDoneToday) {
     const li = document.createElement('li');
     li.className = 'problem-row';
 
@@ -92,20 +92,21 @@
       : `<span class="badge badge-due-today">今日到期</span>`;
 
     const afterDays = nextIntervalDays(scheduleInfo.reviewCount);
+    const doneClass = isDoneToday ? 'review-done' : '';
 
     li.innerHTML = `
       <span class="row-checkbox-placeholder"></span>
-      <a class="problem-item review" href="${href}" target="_blank" rel="noopener">
+      <a class="problem-item review ${doneClass}" href="${href}" target="_blank" rel="noopener">
         <div class="problem-info">
           <div class="problem-title">${title}</div>
           <div class="problem-meta">
             ${difficultyBadge(scheduleInfo.difficulty)}
             ${scheduleInfo.category ? `<span class="problem-category">${scheduleInfo.category}</span>` : ''}
             <span class="badge badge-review-stage">${reviewLabel(scheduleInfo.reviewCount)}</span>
-            ${overdueHtml}
+            ${isDoneToday ? '<span class="badge badge-done-today">✓ 今日已复习</span>' : overdueHtml}
           </div>
         </div>
-        <span class="review-after-label">完成后 +${afterDays}天</span>
+        ${isDoneToday ? '' : `<span class="review-after-label">完成后 +${afterDays}天</span>`}
       </a>
     `;
 
@@ -322,7 +323,7 @@
       });
 
     // ── 统计栏 ──
-    document.getElementById('stat-total').textContent  = submissions.length;
+    document.getElementById('stat-total').textContent  = Object.keys(reviewSchedule).length;
     document.getElementById('stat-today').textContent  = todaySubs.length;
     document.getElementById('stat-review').textContent = dueReviews.length;
 
@@ -336,7 +337,7 @@
       const ul = document.getElementById('list-review');
       ul.innerHTML = '';
       dueReviews.forEach((item) => {
-        ul.appendChild(renderReviewItem(item.title, item));
+        ul.appendChild(renderReviewItem(item.title, item, item.doneToday));
       });
     } else {
       reviewSection.classList.add('hidden');
